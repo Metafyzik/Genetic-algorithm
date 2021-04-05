@@ -55,7 +55,7 @@ def ObjectiveFun(individual):
 
     decimal_index_X = binarToDecim(individual[0])
     decimal_index_Y = binarToDecim(individual[1])
-
+gi
     print("decimal_index_X",,decimal_index_X)
 
     X = xy_coordinates[decimal_index_X] 
@@ -66,32 +66,37 @@ def ObjectiveFun(individual):
 """
 
 def evaluation(individuals,  cycle, num_individuals=10): 
-    indi_fitnes = np.array([]) #!NAME indi_fitnes variable for individuals (2 binary string) and their fitness
+    indi_fitnes = np.array([]) 
                                                                               
     for individual in individuals:
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
 
+
+        #coordinates of an individual on Rastrigin plot
         x = xy_coordinates[decimal_index_x]
         y = xy_coordinates[decimal_index_y]
-        
         z = RastriginFun( x,y ) 
+
         fitness = 1/z
 
         indi_fitnes = np.append( [individual,fitness],indi_fitnes ) 
 
+        # add individual for visualization
         frame_x.append(x)
         frame_y.append(y)
         frame_z.append(z)
     
+    # add whole generation visualization
     add_frames(frame_x,frame_y,frame_z,cycle)
-    #! polish if possible    
+      
     
     frame_x.clear() # emptying lists
     frame_y.clear()
     frame_z.clear()
 
-    indi_fitnes = indi_fitnes.reshape(num_individuals,2) #!NAME indi_fitnes, it sucks, #! 2 stands for dimensions
+    indi_fitnes = indi_fitnes.reshape(num_individuals,2)
+
 
     return indi_fitnes
 
