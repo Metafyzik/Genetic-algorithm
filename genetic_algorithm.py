@@ -68,8 +68,11 @@ def evaluation(individuals,  cycle, num_individuals=10):
     xyRasting = np.array([]) #!NAME xyRasting variable for individuals (2 binary string) and their fitness
                                                                               
     for individual in individuals:
-        x = decimal_xy_coordinates[binarToDecim(individual[0])] #! this is hard to read
-        y = decimal_xy_coordinates[binarToDecim(individual[1])]
+        decimal_x = binarToDecim(individual[0])
+        decimal_y = binarToDecim(individual[1])
+
+        x = decimal_xy_coordinates[decimal_x] #! this is hard to read
+        y = decimal_xy_coordinates[decimal_y]
         z = RastriginFun( x,y ) 
         fitness = 1/z
 
@@ -82,7 +85,7 @@ def evaluation(individuals,  cycle, num_individuals=10):
     add_frames(frame_x,frame_y,frame_z,cycle)
     #! polish if possible    
     
-    frame_x.clear() #! emptying lists so points of another generation can be added
+    frame_x.clear() # emptying lists
     frame_y.clear()
     frame_z.clear()
 
@@ -225,7 +228,7 @@ def geneticAglorithm(cycles=30,num_individuals=40,
         generation = mutation(generation,indi_to_mutate,
         	                  num_children,string_len,num_coordinates)
 
-    vizualization()
+    #vizualization()
     
 geneticAglorithm()
 
