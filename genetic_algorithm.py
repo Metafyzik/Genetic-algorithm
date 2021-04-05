@@ -29,11 +29,13 @@ X,Y = decimal_xy_coordinates,decimal_xy_coordinates
 X, Y = np.meshgrid(X, Y)
 A = 10
 n = 2
-Z =  A*n + (X**2 - A*np.cos(2*pi*X) )  +  (Y**2 -A*np.cos(2*pi*Y)) #! Do I even need this. Yes for drawing plot in vizualization(). Put it as an arguments for vizualizaiton() to generalize it little bit more.
+Z =  A*n + (X**2 - A*np.cos(2*pi*X) )  +  (Y**2 -A*np.cos(2*pi*Y)) 
 
-def nullGeneration(num_individuals=10,string_len=8,values=2,num_coordinates=2): #! Duplicite or non duplicite values
-    nullgeneration = random.randint(values, size=(num_individuals,string_len*num_coordinates))
-    nullgeneration = nullgeneration.reshape(num_individuals,num_coordinates,string_len) #! Can it be generated in proper shape in "one step"?
+
+def nullGeneration(num_individuals=10,string_len=8,values=2,num_coordinates=2): 
+    # Duplicate values are possible
+    nullgeneration = random.randint(values, size=(num_individuals,num_coordinates,string_len))
+
     return nullgeneration
 
 def binarToDecim(binary_list):
