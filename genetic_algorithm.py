@@ -66,7 +66,7 @@ gi
 """
 
 def evaluation(individuals,  cycle, num_individuals=10): 
-    indi_fitnes = np.array([]) 
+    valued_individuals = np.array([]) 
                                                                               
     for individual in individuals:
         decimal_index_x = binarToDecim(individual[0])
@@ -80,7 +80,8 @@ def evaluation(individuals,  cycle, num_individuals=10):
 
         fitness = 1/z
 
-        indi_fitnes = np.append( [individual,fitness],indi_fitnes ) 
+        valued_individuals = np.append( [individual,fitness],valued_individuals ) 
+        
 
         # add individual for visualization
         frame_x.append(x)
@@ -95,10 +96,11 @@ def evaluation(individuals,  cycle, num_individuals=10):
     frame_y.clear()
     frame_z.clear()
 
-    indi_fitnes = indi_fitnes.reshape(num_individuals,2)
+    print("before reshape",valued_individuals)
+    valued_individuals = valued_individuals.reshape(num_individuals,2)
+    print("after",valued_individuals)
 
-
-    return indi_fitnes
+    return valued_individuals
 
 def add_frames(x,y,z,cycle): 
 	frames_all.append( go.Frame(data=[go.Scatter3d(x=x,  
