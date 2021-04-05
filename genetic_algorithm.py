@@ -66,19 +66,19 @@ def ObjectiveFun(individual):
 """
 
 def evaluation(individuals,  cycle, num_individuals=10): 
-    xyRasting = np.array([]) #!NAME xyRasting variable for individuals (2 binary string) and their fitness
+    indi_fitnes = np.array([]) #!NAME indi_fitnes variable for individuals (2 binary string) and their fitness
                                                                               
     for individual in individuals:
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
 
         x = xy_coordinates[decimal_index_x]
-
         y = xy_coordinates[decimal_index_y]
+        
         z = RastriginFun( x,y ) 
         fitness = 1/z
 
-        xyRasting = np.append( [individual,fitness],xyRasting ) 
+        indi_fitnes = np.append( [individual,fitness],indi_fitnes ) 
 
         frame_x.append(x)
         frame_y.append(y)
@@ -91,9 +91,9 @@ def evaluation(individuals,  cycle, num_individuals=10):
     frame_y.clear()
     frame_z.clear()
 
-    xyRasting = xyRasting.reshape(num_individuals,2) #!NAME xyRasting, it sucks, #! 2 stands for dimensions
+    indi_fitnes = indi_fitnes.reshape(num_individuals,2) #!NAME indi_fitnes, it sucks, #! 2 stands for dimensions
 
-    return xyRasting
+    return indi_fitnes
 
 def add_frames(x,y,z,cycle): 
 	frames_all.append( go.Frame(data=[go.Scatter3d(x=x,  
