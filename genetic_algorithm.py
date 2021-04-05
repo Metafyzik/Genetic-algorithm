@@ -22,10 +22,10 @@ text_anima = "Genetic algorithm, generation {}"
 precision = 2**10
 lower_bound = -5.12
 upper_bound = 5.12
-decimal_xy_coordinates = np.linspace(lower_bound,upper_bound, precision)
+xy_coordinates = np.linspace(lower_bound,upper_bound, precision)
                                                                                
 # Rastingin plot
-X,Y = decimal_xy_coordinates,decimal_xy_coordinates
+X,Y = xy_coordinates,xy_coordinates
 X, Y = np.meshgrid(X, Y)
 A = 10
 n = 2
@@ -58,8 +58,9 @@ def ObjectiveFun(individual):
 
     print("decimal_index_X",,decimal_index_X)
 
-    X = decimal_xy_coordinates[decimal_index_X] 
-    Y = decimal_xy_coordinates[decimal_index_Y] 
+    X = xy_coordinates[decimal_index_X] 
+    Y = xy_coordinates[decimal_index_Y] 
+
 
     return RastriginFun(X,Y)
 """
@@ -68,11 +69,12 @@ def evaluation(individuals,  cycle, num_individuals=10):
     xyRasting = np.array([]) #!NAME xyRasting variable for individuals (2 binary string) and their fitness
                                                                               
     for individual in individuals:
-        decimal_x = binarToDecim(individual[0])
-        decimal_y = binarToDecim(individual[1])
+        decimal_index_x = binarToDecim(individual[0])
+        decimal_index_y = binarToDecim(individual[1])
 
-        x = decimal_xy_coordinates[decimal_x] #! this is hard to read
-        y = decimal_xy_coordinates[decimal_y]
+        x = xy_coordinates[decimal_index_x]
+
+        y = xy_coordinates[decimal_index_y]
         z = RastriginFun( x,y ) 
         fitness = 1/z
 
