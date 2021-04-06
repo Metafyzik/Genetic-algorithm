@@ -126,19 +126,17 @@ def selection(valued_individuals,num_parents=5,num_individuals=15):
 def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8,num_children=10,num_coordinates=2): 
     # function for recombining two binary strings, point_recombin stands for point of recombination
 
-    new_indi0 = np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
+    child_x= np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
+    child_y = np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
 
-    new_indi1 = np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
+    child_x = child_x.reshape(string_len) 
+    child_y = child_y.reshape(string_len)
 
-    new_indi0 = new_indi0.reshape(string_len) 
-    new_indi1 = new_indi1.reshape(string_len)
-
-    return [new_indi1,new_indi0] #! RENAME but how
-
+    return [child_x,child_y] 
 def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recombin=4):
     children =  [] #!
 
-     # every couple generates two children
+    # every couple generates two children
     for couple in parents:
 
 
