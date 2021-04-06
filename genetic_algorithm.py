@@ -123,24 +123,24 @@ def selection(valued_individuals,num_parents=5,num_individuals=15):
     parents = np.random.choice(valued_individuals[0:num_individuals,0],size=(num_parents,2),p=propability_individuals )
     return parents
                                                                                
-def recombine(indi0,indi1,point_recombine=4,string_len=8,num_children=10,num_coordinates=2): 
-    # function for recombining two binary strings, point_recombine stands for point of recombination
+def recombine(indi0,indi1,point_recombin=4,string_len=8,num_children=10,num_coordinates=2): 
+    # function for recombining two binary strings, point_recombin stands for point of recombination
 
-    new_indi0 = np.array([indi0[ :point_recombine],indi1[point_recombine:]])
+    new_indi0 = np.array([indi0[ :point_recombin],indi1[point_recombin:]])
 
-    new_indi1 = np.array([indi1[ :point_recombine],indi0[point_recombine:]])
+    new_indi1 = np.array([indi1[ :point_recombin],indi0[point_recombin:]])
 
     new_indi0 = new_indi0.reshape(string_len)
     new_indi1 = new_indi1.reshape(string_len)
 
     return [new_indi1,new_indi0]
 
-def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recombine=4):
+def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recombin=4):
     children = [] #! meh way
     for couple in parents:
 
-        children.append(recombine(couple[0][0],couple[1][0],point_recombine,string_len,num_children,num_coordinates)) #! super hard to read
-        children.append(recombine(couple[0][1],couple[1][1],point_recombine,string_len,num_children,num_coordinates))
+        children.append(recombine(couple[0][0],couple[1][0],point_recombin,string_len,num_children,num_coordinates)) #! super hard to read
+        children.append(recombine(couple[0][1],couple[1][1],point_recombin,string_len,num_children,num_coordinates))
 
     children = np.array([children])
     children = children.reshape(num_children,num_coordinates,string_len)
@@ -220,7 +220,7 @@ def vizualization():
 
 def geneticAglorithm (cycles=30,num_individuals=40,
 	num_parents=20,num_children=40,string_len=10,
-	values=2,num_coordinates=2,point_recombine=5,indi_to_mutate=2): # amount of cycles is equivalent to the number of generation
+	values=2,num_coordinates=2,point_recombin=5,indi_to_mutate=2): # amount of cycles is equivalent to the number of generation
     #incialization of the null gen
     generation = nullGeneration(num_individuals,string_len,values,
     							num_coordinates) 
@@ -233,7 +233,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
         generation = selection(generation,num_parents,
         	                   num_individuals)
         generation = crossover(generation,string_len,num_children,
-                              num_coordinates,point_recombine) #hard to read
+                              num_coordinates,point_recombin) #hard to read
         generation = mutation(generation,indi_to_mutate,
         	                  num_children,string_len,num_coordinates)
 
