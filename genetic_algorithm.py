@@ -67,9 +67,7 @@ gi
 
 def evaluation(individuals,  cycle, num_individuals=10): 
     valued_individuals = np.array([]) 
-    print("sahep of individuals",individuals.shape) 
-
-    print(individuals)                                                                         
+                                                                   
     for index, individual in enumerate (individuals): #!
         
         decimal_index_x = binarToDecim(individual[0])
@@ -83,9 +81,7 @@ def evaluation(individuals,  cycle, num_individuals=10):
 
         fitness = 1/z
 
-        #individuals = individuals[index,]
-        valued_individuals = np.append( np.array([individual,fitness]),valued_individuals ) #! mixing list with np.array is dumb idead
-
+        valued_individuals = np.append( np.array([individual,fitness]),valued_individuals )
 
         # add individual for visualization
         frame_x.append(x)
@@ -100,9 +96,7 @@ def evaluation(individuals,  cycle, num_individuals=10):
     frame_y.clear()
     frame_z.clear()
 
-    print("sahep of valued_individuals",valued_individuals.shape)
     valued_individuals = valued_individuals.reshape(num_individuals,2) #! can I do it without reshaping?
-    print("after",valued_individuals.shape)
 
     return valued_individuals
 
@@ -118,17 +112,16 @@ def add_frames(x,y,z,cycle):
 
 
 def selection(valued_individuals,num_parents=5,num_individuals=15):
-    print(valued_individuals)
-    print(valued_individuals[:][1])
-
     sum_fitness = sum(valued_individuals[:,1])
-    propability_individuals = valued_individuals[:,1]/(sum_fitness)
 
+    # propabality of individuals becoming a parent based on their fitness
+    propability_individuals = valued_individuals[:,1]/(sum_fitness)
     
     #! changing data type from float64 to float so that can be used as keyword "p" in random.choice #!inst there a prretier way to do that
     propability_individuals = propability_individuals.astype('float')
 
     parents = np.random.choice(valued_individuals[0:num_individuals,0],size=(num_parents,2),p=propability_individuals )
+
     return parents
                                                                                
 def recombine(indi0,indi1,point_recombine=4,string_len=8,num_children=10,num_coordinates=2): # function for recombining two binary strings, point_recombine stands for point of recombination
