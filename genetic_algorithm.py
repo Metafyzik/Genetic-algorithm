@@ -151,11 +151,13 @@ def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recom
     return children
 
 def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordinates=2): #!clean up
+    
     for i in range (indi_to_mutate): #! rename "i"
         child = random.randint(num_children) # pick one of the children
-        coordinate = random.randint(num_coordinates) # pick X or Y coordinate (cooded in bit string)
+        coordinate = random.randint(num_coordinates) # pick X or Y coordinate index (cooded in bit string)
         gene = random.randint(string_len) # pick one gene (bit) to change
 
+        # this code only work with binary so the mutation negates
         if children[child,coordinate,gene] == 1:
             children[child,coordinate,gene] = 0
         else:
@@ -241,7 +243,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
         generation = mutation(generation,indi_to_mutate,
         	                  num_children,string_len,num_coordinates)
 
-    #vizualization()
+    vizualization()
     
 geneticAglorithm()
 
