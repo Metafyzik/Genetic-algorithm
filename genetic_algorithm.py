@@ -123,22 +123,25 @@ def selection(valued_individuals,num_parents=5,num_individuals=15):
     parents = np.random.choice(valued_individuals[0:num_individuals,0],size=(num_parents,2),p=propability_individuals )
     return parents
                                                                                
-def recombine(indi0,indi1,point_recombin=4,string_len=8,num_children=10,num_coordinates=2): 
+def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8,num_children=10,num_coordinates=2): 
     # function for recombining two binary strings, point_recombin stands for point of recombination
 
-    new_indi0 = np.array([indi0[ :point_recombin],indi1[point_recombin:]])
+    new_indi0 = np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
 
-    new_indi1 = np.array([indi1[ :point_recombin],indi0[point_recombin:]])
+    new_indi1 = np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
 
-    new_indi0 = new_indi0.reshape(string_len)
+    new_indi0 = new_indi0.reshape(string_len) 
     new_indi1 = new_indi1.reshape(string_len)
 
-    return [new_indi1,new_indi0]
+    return [new_indi1,new_indi0] #! RENAME but how
 
 def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recombin=4):
-    children =  [] #! meh way
+    children =  [] #!
+
+     # every couple generates two children
     for couple in parents:
-        # every couple generates two children
+
+
         child_1 = recombine(couple[0][0],couple[1][0],point_recombin,string_len,num_children,num_coordinates)
         child_2 = recombine(couple[0][1],couple[1][1],point_recombin,string_len,num_children,num_coordinates)
 
