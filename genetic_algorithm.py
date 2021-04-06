@@ -1,5 +1,5 @@
 
-"""Building simple Genetic algorithm from sratch (more or less) and using it to find global extreme on Rastingin function. Using modul nympy for arrays and Plotly for interatice vizualization."""
+"""Building a simple Genetic algorithm from sratch (more or less) and using it to find global extreme on Rastingin function. Using modul nympy for arrays and Plotly for interatice vizualization."""
 # imports
 from numpy import random
 import numpy as np
