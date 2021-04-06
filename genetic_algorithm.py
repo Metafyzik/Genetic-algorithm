@@ -117,14 +117,14 @@ def selection(valued_individuals,num_parents=5,num_individuals=15):
     # propabality of individuals becoming a parent based on their fitness
     propability_individuals = valued_individuals[:,1]/(sum_fitness)
     
-    #! changing data type from float64 to float so that can be used as keyword "p" in random.choice #!inst there a prretier way to do that
+    #changing data type from float64 to float so that can be used as keyword "p" in random.choice
     propability_individuals = propability_individuals.astype('float')
 
     parents = np.random.choice(valued_individuals[0:num_individuals,0],size=(num_parents,2),p=propability_individuals )
-
     return parents
                                                                                
-def recombine(indi0,indi1,point_recombine=4,string_len=8,num_children=10,num_coordinates=2): # function for recombining two binary strings, point_recombine stands for point of recombination
+def recombine(indi0,indi1,point_recombine=4,string_len=8,num_children=10,num_coordinates=2): 
+    # function for recombining two binary strings, point_recombine stands for point of recombination
 
     new_indi0 = np.array([indi0[ :point_recombine],indi1[point_recombine:]])
 
