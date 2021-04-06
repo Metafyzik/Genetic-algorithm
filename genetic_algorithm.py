@@ -136,14 +136,17 @@ def recombine(indi0,indi1,point_recombin=4,string_len=8,num_children=10,num_coor
     return [new_indi1,new_indi0]
 
 def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recombin=4):
-    children = [] #! meh way
+    children =  [] #! meh way
     for couple in parents:
+        # every couple generates two children
+        child_1 = recombine(couple[0][0],couple[1][0],point_recombin,string_len,num_children,num_coordinates)
+        child_2 = recombine(couple[0][1],couple[1][1],point_recombin,string_len,num_children,num_coordinates)
 
-        children.append(recombine(couple[0][0],couple[1][0],point_recombin,string_len,num_children,num_coordinates)) #! super hard to read
-        children.append(recombine(couple[0][1],couple[1][1],point_recombin,string_len,num_children,num_coordinates))
+        children.append(child_1) 
+        children.append(child_2)
+    
+    children = np.array(children)
 
-    children = np.array([children])
-    children = children.reshape(num_children,num_coordinates,string_len)
     return children
 
 def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordinates=2): #!clean up
