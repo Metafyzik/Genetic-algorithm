@@ -3,10 +3,7 @@
 # imports
 from numpy import random
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import cm #!
-from mpl_toolkits.mplot3d import Axes3D
-from math import cos, pi #!
+from math import cos, pi
 import plotly.express as px
 import plotly.graph_objects as go
 
