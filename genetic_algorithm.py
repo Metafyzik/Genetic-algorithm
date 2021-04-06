@@ -68,7 +68,7 @@ gi
 def evaluation(individuals,  cycle, num_individuals=10): 
     valued_individuals = np.array([]) 
                                                                    
-    for index, individual in enumerate (individuals): #!
+    for individual in individuals: #!
         
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
