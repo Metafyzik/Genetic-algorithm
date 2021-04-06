@@ -4,9 +4,9 @@
 from numpy import random
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cm
+from matplotlib import cm #!
 from mpl_toolkits.mplot3d import Axes3D
-from math import cos, pi
+from math import cos, pi #!
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -67,8 +67,11 @@ gi
 
 def evaluation(individuals,  cycle, num_individuals=10): 
     valued_individuals = np.array([]) 
-                                                                              
-    for individual in individuals:
+    print("sahep of individuals",individuals.shape) 
+
+    print(individuals)                                                                         
+    for index, individual in enumerate (individuals): #!
+        
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
 
@@ -80,8 +83,9 @@ def evaluation(individuals,  cycle, num_individuals=10):
 
         fitness = 1/z
 
-        valued_individuals = np.append( [individual,fitness],valued_individuals ) 
-        
+        #individuals = individuals[index,]
+        valued_individuals = np.append( np.array([individual,fitness]),valued_individuals ) #! mixing list with np.array is dumb idead
+
 
         # add individual for visualization
         frame_x.append(x)
@@ -96,9 +100,9 @@ def evaluation(individuals,  cycle, num_individuals=10):
     frame_y.clear()
     frame_z.clear()
 
-    print("before reshape",valued_individuals)
-    valued_individuals = valued_individuals.reshape(num_individuals,2)
-    print("after",valued_individuals)
+    print("sahep of valued_individuals",valued_individuals.shape)
+    valued_individuals = valued_individuals.reshape(num_individuals,2) #! can I do it without reshaping?
+    print("after",valued_individuals.shape)
 
     return valued_individuals
 
@@ -114,10 +118,13 @@ def add_frames(x,y,z,cycle):
 
 
 def selection(valued_individuals,num_parents=5,num_individuals=15):
+    print(valued_individuals)
+    print(valued_individuals[:][1])
 
     sum_fitness = sum(valued_individuals[:,1])
     propability_individuals = valued_individuals[:,1]/(sum_fitness)
 
+    
     #! changing data type from float64 to float so that can be used as keyword "p" in random.choice #!inst there a prretier way to do that
     propability_individuals = propability_individuals.astype('float')
 
@@ -147,7 +154,7 @@ def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recom
     return children
 
 def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordinates=2): #!clean up
-    for i in range (indi_to_mutate):
+    for i in range (indi_to_mutate): #! rename "i"
         child = random.randint(num_children) # pick one of the children
         coordinate = random.randint(num_coordinates) # pick X or Y coordinate (cooded in bit string)
         gene = random.randint(string_len) # pick one gene (bit) to change
@@ -218,7 +225,7 @@ def vizualization():
                                                                                             
     fig.show()
 
-def geneticAglorithm(cycles=30,num_individuals=40,
+def geneticAglorithm (cycles=30,num_individuals=40,
 	num_parents=20,num_children=40,string_len=10,
 	values=2,num_coordinates=2,point_recombine=5,indi_to_mutate=2): # amount of cycles is equivalent to the number of generation
     #incialization of the null gen
