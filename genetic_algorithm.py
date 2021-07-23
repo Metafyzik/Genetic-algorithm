@@ -4,17 +4,9 @@
 from numpy import random
 import numpy as np
 from math import cos, pi
-import plotly.express as px
-import plotly.graph_objects as go
+
 from function_for_optimization import *
-
-#frames to be vizualized
-frame_x = [] #! why dont use np array?
-frame_y = []
-frame_z = []
-
-frames_all = []
-text_anima = "Genetic algorithm, generation {}"
+from animation import *
 
 def binarToDecim(binary_list):
     decimal_number = 0
@@ -53,16 +45,6 @@ def evaluation(individuals, num_individuals=10):
 
     valued_individuals = valued_individuals.reshape(num_individuals,2) #! can I do it without reshaping?
     return valued_individuals,frame_x,frame_y,frame_z
-
-def add_frames(x,y,z,cycle,frames_all): 
-	frames_all.append( go.Frame(data=[go.Scatter3d(x=x,  
-    				                  y=y,z=z,mode="markers",
-                                      marker=dict(color="red", size=8),)   
-                                     ], 
-                               layout=go.Layout(title_text=text_anima.format(cycle)),
-                                                name=str(cycle) 
-                                ) 
-                     )
 
 def selection(valued_individuals,num_parents=5,num_individuals=15):
     sum_fitness = sum(valued_individuals[:,1])
@@ -116,64 +98,6 @@ def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordina
 
     return children
 
-def frame_args(duration):
-    return {
-            "frame": {"duration": duration,"redraw": "redraw"},
-            "mode": "immediate",
-            "fromcurrent": True,
-            "transition": {"duration": 150, "easing": "linear"},
-        }
-
-def vizualization(frames_all):
-    sliders = [
-            {
-                "pad": {"b": 10, "t": 60},
-                "len": 0.3,
-                "x": 0.1,
-                "y": 0.1,
-                "steps": [
-                    {
-                        "args": [[frame.name], frame_args(0)],
-                        "label": str(k),
-                        "method": "animate",
-                    }
-                    for k, frame in enumerate(frames_all)
-                ],
-            }
-        ]
-    
-    fig = go.Figure(
-        data=[go.Surface(z=Z,x=X,y=Y),
-              go.Surface(z=Z,x=X,y=Y )],
-        layout=go.Layout(
-               xaxis=dict(range=[lower_bound, upper_bound], 
-            	       autorange=False, 
-            	       zeroline=False),
-               yaxis=dict(range=[lower_bound, upper_bound], 
-            	       autorange=False, 
-            	       zeroline=False),
-        title_text="Genetic algorithm", hovermode="closest",
-        updatemenus=[dict(type="buttons",
-        				  direction = "left",
-        				  x = 0.1,
-        				  y = 0.1,
-        				  pad = dict(r= 10, t=70),
-                                buttons=[dict(label="Run",
-                                            method="animate",
-                                            args=[None, frame_args(200)] ),
-                                        dict(label="Stop",
-                                            method="animate",
-                                            args=[[None],frame_args(0)] ) ],
-                          
-                        )
-                    ],
-
-        sliders=sliders),
-        frames=frames_all
-    )
-                                                                                            
-    fig.show()
-
 def geneticAglorithm (cycles=30,num_individuals=40,
 	num_parents=20,num_children=40,string_len=10,
 	values=2,num_coordinates=2,point_recombin=5,indi_to_mutate=2): # amount of cycles is equivalent to the number of generation
@@ -192,7 +116,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
         generation = mutation(generation,indi_to_mutate,
         	                  num_children,string_len,num_coordinates)
 
-    vizualization(frames_all)
+    visualization(frames_all,X,Y,Z,lower_bound,upper_bound)
     
 geneticAglorithm()
 
