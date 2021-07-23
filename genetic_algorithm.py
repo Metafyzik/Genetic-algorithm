@@ -28,12 +28,9 @@ A = 10
 n = 2
 Z =  A*n + (X**2 - A*np.cos(2*pi*X) )  +  (Y**2 -A*np.cos(2*pi*Y)) 
 
-
-def nullGeneration(num_individuals=10,string_len=8,values=2,num_coordinates=2): 
-    # Duplicate values are possible
-    nullgeneration = random.randint(values, size=(num_individuals,num_coordinates,string_len))
-
-    return nullgeneration
+def RastriginFun(X,Y,A=10,n=2):
+    Z =  A*n + (X**2 - A*np.cos(2*pi*X) )  +  (Y**2 -A*np.cos(2*pi*Y))
+    return Z
 
 def binarToDecim(binary_list):
     decimal_number = 0
@@ -41,35 +38,18 @@ def binarToDecim(binary_list):
         decimal_number += 2**index*int(binary)
     return decimal_number
 
-def RastriginFun(X,Y,A=10,n=2):
-    Z =  A*n + (X**2 - A*np.cos(2*pi*X) )  +  (Y**2 -A*np.cos(2*pi*Y))
-    return Z
+def nullGeneration(num_individuals=10,string_len=8,values=2,num_coordinates=2): 
+    # Duplicate values are possible
+    nullgeneration = random.randint(values, size=(num_individuals,num_coordinates,string_len))
 
-"""
-def ObjectiveFun(individual): 
-    INPUT: individual cooded as two binary "strings" standing for x,y coordinates 
-        -> "translate" into decimal numbers -> OUTPUT: RastriginFun(x,y)
-
-    decimal_index_X = binarToDecim(individual[0])
-    decimal_index_Y = binarToDecim(individual[1])
-gi
-    print("decimal_index_X",,decimal_index_X)
-
-    X = xy_coordinates[decimal_index_X] 
-    Y = xy_coordinates[decimal_index_Y] 
-
-
-    return RastriginFun(X,Y)
-"""
+    return nullgeneration
 
 def evaluation(individuals,  cycle, num_individuals=10): 
     valued_individuals = np.array([]) 
                                                                    
-    for individual in individuals: #!
-        
+    for individual in individuals: #!      
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
-
 
         #coordinates of an individual on Rastrigin plot
         x = xy_coordinates[decimal_index_x]
@@ -77,7 +57,6 @@ def evaluation(individuals,  cycle, num_individuals=10):
         z = RastriginFun( x,y ) 
 
         fitness = 1/z
-
         valued_individuals = np.append( np.array([individual,fitness]),valued_individuals )
 
         # add individual for visualization
@@ -87,8 +66,7 @@ def evaluation(individuals,  cycle, num_individuals=10):
     
     # add whole generation visualization
     add_frames(frame_x,frame_y,frame_z,cycle)
-      
-    
+         
     frame_x.clear() # emptying lists
     frame_y.clear()
     frame_z.clear()
@@ -106,7 +84,6 @@ def add_frames(x,y,z,cycle):
                                                 name=str(cycle) 
                                 ) 
                      )
-
 
 def selection(valued_individuals,num_parents=5,num_individuals=15):
     sum_fitness = sum(valued_individuals[:,1])
@@ -129,14 +106,13 @@ def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8,num_chil
     child_x = child_x.reshape(string_len) 
     child_y = child_y.reshape(string_len)
 
-    return [child_x,child_y] 
+    return [child_x,child_y]
+
 def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recombin=4):
     children =  [] #!
 
     # every couple generates two children
     for couple in parents:
-
-
         child_1 = recombine(couple[0][0],couple[1][0],point_recombin,string_len,num_children,num_coordinates)
         child_2 = recombine(couple[0][1],couple[1][1],point_recombin,string_len,num_children,num_coordinates)
 
@@ -144,7 +120,6 @@ def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recom
         children.append(child_2)
     
     children = np.array(children)
-
     return children
 
 def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordinates=2): #!clean up
@@ -228,10 +203,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
     generation = nullGeneration(num_individuals,string_len,values,
     							num_coordinates) 
     for cycle in range (cycles):
-        #print("Generation {}".format(cycle))
-
         generation = evaluation(generation,cycle, num_individuals)
-        #print("individuals Rastingin fun output",1/generation[:,1])
 
         generation = selection(generation,num_parents,
         	                   num_individuals)
