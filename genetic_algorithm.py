@@ -6,6 +6,7 @@ import numpy as np
 from math import cos, pi
 import plotly.express as px
 import plotly.graph_objects as go
+from function_for_optimization import *
 
 #frames to be vizualized
 frame_x = [] #! why dont use np array?
@@ -14,23 +15,6 @@ frame_z = []
 
 frames_all = []
 text_anima = "Genetic algorithm, generation {}"
-
-# Domain of a Rastringin function
-precision = 2**10
-lower_bound = -5.12
-upper_bound = 5.12
-xy_coordinates = np.linspace(lower_bound,upper_bound, precision)
-                                                                               
-# Rastingin plot
-X,Y = xy_coordinates,xy_coordinates
-X, Y = np.meshgrid(X, Y)
-A = 10
-n = 2
-Z =  A*n + (X**2 - A*np.cos(2*pi*X) )  +  (Y**2 -A*np.cos(2*pi*Y)) 
-
-def RastriginFun(X,Y,A=10,n=2):
-    Z =  A*n + (X**2 - A*np.cos(2*pi*X) )  +  (Y**2 -A*np.cos(2*pi*Y))
-    return Z
 
 def binarToDecim(binary_list):
     decimal_number = 0
@@ -197,7 +181,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
     generation = nullGeneration(num_individuals,string_len,values,
     							num_coordinates) 
     for cycle in range (cycles):
-        generation,frame_x,frame_y,frame_z = evaluation(generation,cycle, num_individuals)
+        generation,frame_x,frame_y,frame_z = evaluation(generation, num_individuals)
         # creating frames for visualization
         add_frames(frame_x,frame_y,frame_z,cycle,frames_all)
 
