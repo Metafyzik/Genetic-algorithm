@@ -129,7 +129,7 @@ def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordina
         coordinate = random.randint(num_coordinates) # pick X or Y coordinate index (cooded in bit string)
         gene = random.randint(string_len) # pick one gene (bit) to change
 
-        # this code only work with binary so the mutation negates
+        #! this code only work with binary so the mutation negates
         if children[child,coordinate,gene] == 1:
             children[child,coordinate,gene] = 0
         else:
@@ -163,7 +163,6 @@ def vizualization():
             }
         ]
     
-    text_anima = "Genetic algorithm, generation {}"
     fig = go.Figure(
         data=[go.Surface(z=Z,x=X,y=Y),
               go.Surface(z=Z,x=X,y=Y )],
@@ -208,7 +207,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
         generation = selection(generation,num_parents,
         	                   num_individuals)
         generation = crossover(generation,string_len,num_children,
-                              num_coordinates,point_recombin) #hard to read
+                              num_coordinates,point_recombin) #! hard to read
         generation = mutation(generation,indi_to_mutate,
         	                  num_children,string_len,num_coordinates)
 
