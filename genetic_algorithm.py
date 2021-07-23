@@ -3,7 +3,7 @@
 # imports
 from numpy import random
 import numpy as np
-from math import cos, pi
+
 
 from function_for_optimization import *
 from animation import *
