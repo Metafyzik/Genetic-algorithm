@@ -44,8 +44,11 @@ def nullGeneration(num_individuals=10,string_len=8,values=2,num_coordinates=2):
 
     return nullgeneration
 
-def evaluation(individuals,  cycle, num_individuals=10): 
+def evaluation(individuals, num_individuals=10): 
     valued_individuals = np.array([]) 
+    frame_x.clear() # emptying lists
+    frame_y.clear()
+    frame_z.clear()
                                                                    
     for individual in individuals: #!      
         decimal_index_x = binarToDecim(individual[0])
@@ -63,19 +66,11 @@ def evaluation(individuals,  cycle, num_individuals=10):
         frame_x.append(x)
         frame_y.append(y)
         frame_z.append(z)
-    
-    # add whole generation visualization
-    add_frames(frame_x,frame_y,frame_z,cycle)
-         
-    frame_x.clear() # emptying lists
-    frame_y.clear()
-    frame_z.clear()
 
     valued_individuals = valued_individuals.reshape(num_individuals,2) #! can I do it without reshaping?
+    return valued_individuals,frame_x,frame_y,frame_z
 
-    return valued_individuals
-
-def add_frames(x,y,z,cycle): 
+def add_frames(x,y,z,cycle,frames_all): 
 	frames_all.append( go.Frame(data=[go.Scatter3d(x=x,  
     				                  y=y,z=z,mode="markers",
                                       marker=dict(color="red", size=8),)   
@@ -145,7 +140,7 @@ def frame_args(duration):
             "transition": {"duration": 150, "easing": "linear"},
         }
 
-def vizualization():
+def vizualization(frames_all):
     sliders = [
             {
                 "pad": {"b": 10, "t": 60},
@@ -202,7 +197,9 @@ def geneticAglorithm (cycles=30,num_individuals=40,
     generation = nullGeneration(num_individuals,string_len,values,
     							num_coordinates) 
     for cycle in range (cycles):
-        generation = evaluation(generation,cycle, num_individuals)
+        generation,frame_x,frame_y,frame_z = evaluation(generation,cycle, num_individuals)
+        # creating frames for visualization
+        add_frames(frame_x,frame_y,frame_z,cycle,frames_all)
 
         generation = selection(generation,num_parents,
         	                   num_individuals)
@@ -211,7 +208,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
         generation = mutation(generation,indi_to_mutate,
         	                  num_children,string_len,num_coordinates)
 
-    vizualization()
+    vizualization(frames_all)
     
 geneticAglorithm()
 
