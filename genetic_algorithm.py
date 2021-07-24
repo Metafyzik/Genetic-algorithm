@@ -30,8 +30,8 @@ def evaluation(individuals, num_individuals=10):
         decimal_index_y = binarToDecim(individual[1])
 
         #coordinates of an individual on Rastrigin plot
-        x = xy_coordinates[decimal_index_x]
-        y = xy_coordinates[decimal_index_y]
+        x = xy_domain[decimal_index_x]
+        y = xy_domain[decimal_index_y]
         z = RastriginFun( x,y ) 
 
         fitness = 1/z
