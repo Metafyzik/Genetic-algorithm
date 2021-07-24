@@ -4,7 +4,6 @@
 from numpy import random
 import numpy as np
 
-
 from function_for_optimization import *
 from animation import *
 
@@ -100,7 +99,7 @@ def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordina
 
 def geneticAglorithm (cycles=30,num_individuals=40,
 	num_parents=20,num_children=40,string_len=10,
-	values=2,num_coordinates=2,point_recombin=5,indi_to_mutate=2): # amount of cycles is equivalent to the number of generation
+	values=2,num_coordinates=2,point_recombin=5,indi_to_mutate=2): #! amount of cycles is equivalent to the number of generation
     #incialization of the null gen
     generation = nullGeneration(num_individuals,string_len,values,
     							num_coordinates) 
