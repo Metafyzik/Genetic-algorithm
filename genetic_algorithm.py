@@ -21,10 +21,10 @@ def nullGeneration(num_individuals=10,string_len=8,values=2,num_coordinates=2):
 
 def evaluation(individuals, num_individuals=10): 
     valued_individuals = np.array([]) 
-    frame_x.clear() # emptying lists
-    frame_y.clear()
-    frame_z.clear()
-                                                                   
+    x_coordinates = []
+    y_coordinates = []
+    z_coordinates = []
+
     for individual in individuals: #!      
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
@@ -38,12 +38,12 @@ def evaluation(individuals, num_individuals=10):
         valued_individuals = np.append( np.array([individual,fitness]),valued_individuals )
 
         # add individual for visualization
-        frame_x.append(x)
-        frame_y.append(y)
-        frame_z.append(z)
+        x_coordinates.append(x)
+        y_coordinates.append(y)
+        z_coordinates.append(z)
 
     valued_individuals = valued_individuals.reshape(num_individuals,2) #! can I do it without reshaping?
-    return valued_individuals,frame_x,frame_y,frame_z
+    return valued_individuals,x_coordinates,y_coordinates,z_coordinates
 
 def selection(valued_individuals,num_parents=5,num_individuals=15):
     sum_fitness = sum(valued_individuals[:,1])
@@ -104,9 +104,9 @@ def geneticAglorithm (cycles=30,num_individuals=40,
     generation = nullGeneration(num_individuals,string_len,values,
     							num_coordinates) 
     for cycle in range (cycles):
-        generation,frame_x,frame_y,frame_z = evaluation(generation, num_individuals)
+        generation,x_coordinates,y_coordinates,z_coordinates = evaluation(generation, num_individuals)
         # creating frames for visualization
-        add_frames(frame_x,frame_y,frame_z,cycle,frames_all)
+        add_frames(x_coordinates,y_coordinates,z_coordinates,cycle,frames_all)
 
         generation = selection(generation,num_parents,
         	                   num_individuals)
