@@ -68,7 +68,7 @@ def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8):
 
     return [child_x,child_y]
 
-def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recombin=4):
+def crossover(parents,string_len,point_recombin):
     children =  [] #!
 
     # every couple generates two children
@@ -82,7 +82,7 @@ def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recom
     children = np.array(children)
     return children
 
-def mutation(children,indi_to_mutate=1,num_children=10,string_len=8,num_coordinates=2): #!clean up
+def mutation(children,indi_to_mutate,num_children,string_len,num_coordinates): #!clean up
     
     for i in range (indi_to_mutate): #! rename "i"
         child = random.randint(num_children) # pick one of the children
@@ -110,8 +110,7 @@ def geneticAglorithm (cycles=30,num_individuals=40,
 
         generation = selection(generation,num_parents,
         	                   num_individuals)
-        generation = crossover(generation,string_len,num_children,
-                              num_coordinates,point_recombin) #! hard to read
+        generation = crossover(generation,string_len,point_recombin)
         generation = mutation(generation,indi_to_mutate,
         	                  num_children,string_len,num_coordinates)
 
