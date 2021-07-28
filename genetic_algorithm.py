@@ -13,7 +13,7 @@ def binarToDecim(binary_list):
         decimal_number += 2**index*int(binary)
     return decimal_number
 
-def nullGeneration(num_individuals=10,string_len=8,values=2,num_coordinates=2): 
+def nullGeneration(num_individuals,string_len,values,num_coordinates): 
     # Duplicate values are possible
     nullgeneration = random.randint(values, size=(num_individuals,num_coordinates,string_len))
 
@@ -45,7 +45,7 @@ def evaluation(individuals, num_individuals=10):
     valued_individuals = valued_individuals.reshape(num_individuals,2) #! can I do it without reshaping?
     return valued_individuals,x_coordinates,y_coordinates,z_coordinates
 
-def selection(valued_individuals,num_parents=5,num_individuals=15):
+def selection(valued_individuals,num_parents,num_individuals):
     sum_fitness = sum(valued_individuals[:,1])
 
     # propabality of individuals becoming a parent based on their fitness
@@ -57,7 +57,7 @@ def selection(valued_individuals,num_parents=5,num_individuals=15):
     parents = np.random.choice(valued_individuals[0:num_individuals,0],size=(num_parents,2),p=propability_individuals )
     return parents
                                                                                
-def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8,num_children=10,num_coordinates=2): 
+def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8): 
     # function for recombining two binary strings, point_recombin stands for point of recombination
 
     child_x= np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
@@ -73,8 +73,8 @@ def crossover(parents,string_len=8,num_children=10,num_coordinates=2,point_recom
 
     # every couple generates two children
     for couple in parents:
-        child_1 = recombine(couple[0][0],couple[1][0],point_recombin,string_len,num_children,num_coordinates)
-        child_2 = recombine(couple[0][1],couple[1][1],point_recombin,string_len,num_children,num_coordinates)
+        child_1 = recombine(couple[0][0],couple[1][0],point_recombin,string_len)
+        child_2 = recombine(couple[0][1],couple[1][1],point_recombin,string_len)
 
         children.append(child_1) 
         children.append(child_2)

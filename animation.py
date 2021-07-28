@@ -1,9 +1,6 @@
 import plotly.express as px
 import plotly.graph_objects as go
 #frames to be vizualized
-frame_x = [] #! why dont use np array?
-frame_y = []
-frame_z = []
 
 frames_all = []
 text_anima = "Genetic algorithm, generation {}"
