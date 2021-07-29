@@ -61,7 +61,7 @@ def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8):
     # function for recombining two binary strings, point_recombin stands for point of recombination
 
     child_x= np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
-    child_y = np.array([prnt_1_bitstr[ :point_recombin],prnt_2_bitstr[point_recombin:]])
+    child_y = np.array([prnt_2_bitstr[ :point_recombin],prnt_1_bitstr[point_recombin:]])
 
     child_x = child_x.reshape(string_len) 
     child_y = child_y.reshape(string_len)
