@@ -1,9 +1,8 @@
-"""Building a simple Genetic algorithm from sratch (more or less) and using it to find global extreme on Rastingin function. 
-   Using modul numpy for arrays and Plotly for interatice visualization."""
 # imports
 from numpy import random
 import numpy as np
 
+#! wild card import is not good practise
 from function_for_optimization import *
 from animation import *
 
@@ -25,7 +24,7 @@ def evaluation(individuals, num_individuals=10):
     y_coordinates = []
     z_coordinates = []
 
-    for individual in individuals: #!      
+    for individual in individuals:      
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
 
@@ -69,7 +68,7 @@ def recombine(prnt_1_bitstr,prnt_2_bitstr,point_recombin=4,string_len=8):
     return [child_x,child_y]
 
 def crossover(parents,string_len,point_recombin):
-    children =  [] #!
+    children =  []
 
     # every couple generates two children
     for couple in parents:
@@ -84,7 +83,7 @@ def crossover(parents,string_len,point_recombin):
 
 def mutation(children,indi_to_mutate,num_children,string_len,num_coordinates): #!clean up
     
-    for i in range (indi_to_mutate): #! rename "i"
+    for i in range (indi_to_mutate):
         child = random.randint(num_children) # pick one of the children
         coordinate = random.randint(num_coordinates) # pick X or Y coordinate index (cooded in bit string)
         gene = random.randint(string_len) # pick one gene (bit) to change
@@ -99,7 +98,7 @@ def mutation(children,indi_to_mutate,num_children,string_len,num_coordinates): #
 
 def geneticAglorithm (cycles=30,num_individuals=40,
 	num_parents=20,num_children=40,string_len=10,
-	values=2,num_coordinates=2,point_recombin=5,indi_to_mutate=2): #! amount of cycles is equivalent to the number of generation
+	values=2,num_coordinates=2,point_recombin=5,indi_to_mutate=2):
     #incialization of the null gen
     generation = nullGeneration(num_individuals,string_len,values,
     							num_coordinates) 
