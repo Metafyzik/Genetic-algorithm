@@ -19,7 +19,7 @@ def nullGeneration(num_individuals,string_len,values,num_coordinates):
     return nullgeneration
 
 def evaluation(individuals, num_individuals=10): 
-    valued_individuals = np.array([]) 
+    valued_individuals = np.array([],dtype=object) 
     x_coordinates = []
     y_coordinates = []
     z_coordinates = []
@@ -28,13 +28,13 @@ def evaluation(individuals, num_individuals=10):
         decimal_index_x = binarToDecim(individual[0])
         decimal_index_y = binarToDecim(individual[1])
 
-        #coordinates of an individual on Rastrigin plot
+        #coordinates of an individual on Rastrigin plot 
         x = xy_domain[decimal_index_x]
         y = xy_domain[decimal_index_y]
         z = RastriginFun( x,y ) 
 
         fitness = 1/z
-        valued_individuals = np.append( np.array([individual,fitness]),valued_individuals )
+        valued_individuals = np.append( np.array([individual,fitness],dtype=object,),valued_individuals )     
 
         # add individual for visualization
         x_coordinates.append(x)
